@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         {isAuthenticated && (
-          <>
+          <><Route path="/dashboard/:areaId/:treeId" element={<Dashboard />} />
             <Route path="/area-selection" element={<AreaSelection />} />
             <Route path="/tree-selection/:areaId" element={<TreeSelection />} />
             <Route path="/dashboard/:treeId" element={<Dashboard />} />

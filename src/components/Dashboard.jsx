@@ -1,32 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GaugeMeter from "./GaugeMeter";
-import "../styles/Dashboard.css"; // Add a separate CSS file for better styling
+import { database, ref, onValue } from "../firebaseConfig";
+import "../styles/Dashboard.css";  // Ensure you have a CSS file for styling
 
 const Dashboard = () => {
-  const { treeId } = useParams();
-  const [temperature, setTemperature] = useState(30);
-  const [humidity, setHumidity] = useState(60);
+  const { areaId, treeId } = useParams();
+  const [sensorData, setSensorData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Function to update sensor values randomly (simulating real-time data)
   useEffect(() => {
-    const updateSensorData = () => {
-      setTemperature(parseFloat((20 + Math.random() * 15).toFixed(1))); // Rounded to 1 decimal place
-      setHumidity(parseFloat((40 + Math.random() * 30).toFixed(1))); // Rounded to 1 decimal place
-    };
+    if (!areaId || !treeId) return;
 
-    const interval = setInterval(updateSensorData, 5000); // Updates every 5 seconds
-    return () => clearInterval(interval);
-  }, []);
+    const sensorRef = ref(database, `areas/${areaId}/trees/${treeId}/sensors`);
+
+    const unsubscribe = onValue(sensorRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setSensorData(snapshot.val());
+      } else {
+        setSensorData({
+          temperature: "N/A",
+          humidity: "N/A",
+          aqi: "N/A",
+          gyroscopeChange: false,
+        });
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe(); // Cleanup listener on unmount
+  }, [areaId, treeId]);
+
+  if (loading) {
+    return <h2>Loading sensor data...</h2>;
+  }
 
   return (
     <div className="dashboard">
-      <h2 className="dashboard-title">Tree {treeId} - Sensor Data</h2>
-
+      <h2>Tree {treeId} in Area {areaId} - Sensor Data</h2>
       <div className="gauge-container">
-        <GaugeMeter title="Temperature" value={temperature} unit="°C" min={0} max={50} />
-        <GaugeMeter title="Humidity" value={humidity} unit="%" min={0} max={100} />
+        <GaugeMeter title="Temperature (°C)" value={sensorData?.temperature ?? "N/A"} />
+        <GaugeMeter title="Humidity (%)" value={sensorData?.humidity ?? "N/A"} />
+        <GaugeMeter title="AQI" value={sensorData?.aqi ?? "N/A"} />
       </div>
+      {sensorData?.gyroscopeChange && <p className="alert-message">⚠️ Gyroscope Alert Detected!</p>}
     </div>
   );
 };
