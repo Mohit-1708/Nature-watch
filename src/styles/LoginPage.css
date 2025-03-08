@@ -1,0 +1,111 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("../images/forest.jpg"); /* Make sure the image exists in src/images/ */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #fff8f8; /* Set text color to white for contrast */
+}
+
+/* Login Container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login Box */
+.login-box {
+  background: rgba(174, 168, 168, 0.7); /* Dark transparent background */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+  width: 350px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Title */
+#Title {
+  background-color: #336527b0;
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+}
+
+/* Form Styling */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 80%;
+  padding: 12px 12px 12px 40px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+}
+
+.input-group input:focus {
+  border-color: #667eea;
+}
+
+/* Icons */
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #667eea;
+}
+
+/* Login Button */
+.login-button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.login-button:hover {
+  background: #5641a2;
+  transform: scale(1.05);
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+/* Switch between Login/Register */
+.switch-text {
+  margin-top: 15px;
+  color: #fff;
+}
+
+.switch-link {
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+  transition: color 0.3s ease-in-out;
+}
+
+.switch-link:hover {
+  color: #390ed5;
+}

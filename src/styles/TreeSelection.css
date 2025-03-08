@@ -1,0 +1,49 @@
+.tree-selection {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Tree Grid - Ensures horizontal layout */
+.tree-grid {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  justify-content: center; /* Centers buttons */
+  gap: 15px; /* Adds space between buttons */
+}
+#Title{
+  background-color: rgba(0, 0, 0, 0.606);
+}
+
+/* Tree Button - Styled properly */
+.tree-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px; /* Fixed width for uniform size */
+  height: 50px; /* Fixed height */
+  font-size: 16px;
+  background-color: #326033e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.tree-button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Design - Makes sure it stacks on smaller screens */
+@media (max-width: 768px) {
+  .tree-grid {
+      flex-direction: row; /* Ensures buttons are in a row */
+      flex-wrap: wrap; /* Wraps if the screen is small */
+  }
+  
+  .tree-button {
+      width: 100px; /* Adjust button size for mobile */
+      height: 45px;
+  }
+}

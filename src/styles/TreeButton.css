@@ -1,0 +1,46 @@
+/* Tree Grid - Ensures horizontal layout */
+.tree-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  /* Tree Button */
+  .tree-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 50px;
+    font-size: 16px;
+    background-color: #326033e8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  /* Alert (Red button when gyroscope changes) */
+  .tree-button.alert {
+    background-color: red;
+  }
+  
+  /* Hover effect */
+  .tree-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .tree-grid {
+      flex-wrap: wrap;
+    }
+  
+    .tree-button {
+      width: 100px;
+      height: 45px;
+    }
+  }
+  

@@ -1,0 +1,73 @@
+.area-selection {
+  text-align: center;
+  padding: 20px;
+  
+}
+#Title{
+  text-align: center;
+  background-color: rgba(45, 43, 43, 0.714);
+}
+
+/* Area Grid - Displays areas in a horizontal row */
+.area-grid {
+  display: flex;
+  flex-direction: row; /* Ensure horizontal layout */
+  flex-wrap: wrap; /* Allows wrapping to next line if space is insufficient */
+  justify-content: center; /* Center the area tabs */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Area Card - Styled as a clickable tab */
+.area-card {
+  width: 220px;
+  height: 160px;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  background: url("../images/area.jpg") center/cover no-repeat; /* Background image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark overlay to make text readable */
+.area-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(50, 50, 50, 0.5); /* Dark overlay */
+  z-index: 1;
+}
+
+/* Text inside area card */
+.area-card span {
+  color: rgb(255, 250, 250);
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 2;
+  text-align:center;
+}
+
+/* Hover effect */
+.area-card:hover {
+  transform: scale(1.1);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3);
+}
+.area-card.alert {
+  background-color: red;
+}
+/* Fix responsiveness */
+@media (max-width: 768px) {
+  .area-grid {
+    flex-direction: row; /* Still keep it horizontal on small screens */
+    flex-wrap: wrap; /* Ensure it doesn't force vertical stacking */
+    justify-content: center;
+  }
+}
