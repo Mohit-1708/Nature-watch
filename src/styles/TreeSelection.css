@@ -34,6 +34,21 @@
 .tree-button:hover {
   background-color: #45a049;
 }
+.web-alert {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
 
 /* Responsive Design - Makes sure it stacks on smaller screens */
 @media (max-width: 768px) {

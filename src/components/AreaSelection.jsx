@@ -6,36 +6,66 @@ import "../styles/AreaSelection.css";
 const AreaSelection = () => {
   const navigate = useNavigate();
   const [areaAlerts, setAreaAlerts] = useState({});
+  const [webAlert, setWebAlert] = useState(null);
 
   useEffect(() => {
     const areasRef = ref(database, "areas");
 
     // Listen for changes in Firebase
-    onValue(areasRef, (snapshot) => {
+    const unsubscribe = onValue(areasRef, (snapshot) => {
       if (snapshot.exists()) {
         const alerts = {};
-        
+        let anyAreaAlert = false;
+        let alertAreaName = "";
+
         snapshot.forEach((areaSnapshot) => {
-          const areaId = areaSnapshot.key; // Get area ID
+          const areaId = areaSnapshot.key;
           let hasAlert = false;
 
           // Loop through trees in each area
           areaSnapshot.child("trees").forEach((treeSnapshot) => {
             const treeData = treeSnapshot.val().sensors;
-            if (treeData && treeData.gyroscopeChange) {
+            if (treeData && (treeData.gyroscopeChange || treeData.firedetector)) {
               hasAlert = true;
             }
           });
 
           alerts[areaId] = hasAlert;
+
+          if (hasAlert) {
+            anyAreaAlert = true;
+            alertAreaName = `Area ${areaId}`;
+          }
         });
 
         setAreaAlerts(alerts);
+
+        // Show Web Alert if an area turns red
+        if (anyAreaAlert) {
+          setWebAlert(`🚨 ALERT: ${alertAreaName} has trees with issues!`);
+
+          // Browser Notification (Optional)
+          if (Notification.permission === "granted") {
+            new Notification("🔥 Area Alert!", {
+              body: `${alertAreaName} has trees with issues!`,
+              icon: "/alert-icon.png", // Replace with actual icon
+            });
+          }
+        } else {
+          setWebAlert(null);
+        }
       }
     });
 
-    return () => {}; // Cleanup function (optional)
-  }, []); // Run only once
+    return () => unsubscribe();
+  }, []);
+
+  // Request Notification Permission (only once)
+  useEffect(() => {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+  }, []);
 
   const areas = [
     { id: "1", name: "Area 1" },
@@ -47,6 +77,9 @@ const AreaSelection = () => {
   return (
     <div className="area-selection">
       <h2 id="Title">Select an Area</h2>
+
+      {webAlert && <div className="web-alert">{webAlert}</div>}
+
       <div className="area-grid">
         {areas.map((area) => (
           <div 

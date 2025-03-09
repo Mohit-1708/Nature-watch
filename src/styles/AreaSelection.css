@@ -61,8 +61,24 @@
   box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3);
 }
 .area-card.alert {
-  background-color: red;
+  background: url(../images/redarea.jpg) center/cover no-repeat;
 }
+.web-alert {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
 /* Fix responsiveness */
 @media (max-width: 768px) {
   .area-grid {
